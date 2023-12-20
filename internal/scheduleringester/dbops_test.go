@@ -147,13 +147,13 @@ func TestDbOperationOptimisation(t *testing.T) {
 			InsertJobs{jobIds[2]: &schedulerdb.Job{JobID: jobIds[2], Queue: testQueueName, JobSet: "set1"}},                                         // 3
 		}},
 		"MarkJobSetsCancelRequested, MarkJobsCancelRequested": {N: 4, Ops: []DbOperation{
-			InsertJobs{jobIds[0]: &schedulerdb.Job{JobID: jobIds[0], Queue: testQueueName, JobSet: "set1"}}, // 1
-			InsertJobs{jobIds[1]: &schedulerdb.Job{JobID: jobIds[1], Queue: testQueueName, JobSet: "set1"}}, // 1
-			MarkJobsCancelRequested{jobIds[0]: ""}, // 2
+			InsertJobs{jobIds[0]: &schedulerdb.Job{JobID: jobIds[0], Queue: testQueueName, JobSet: "set1"}},                                         // 1
+			InsertJobs{jobIds[1]: &schedulerdb.Job{JobID: jobIds[1], Queue: testQueueName, JobSet: "set1"}},                                         // 1
+			MarkJobsCancelRequested{jobIds[0]: ""},                                                                                                  // 2
 			MarkJobSetsCancelRequested{JobSetKey{queue: testQueueName, jobSet: "set1"}: JobSetCancelAction{cancelQueued: true, cancelLeased: true}}, // 3
 			InsertJobs{jobIds[2]: &schedulerdb.Job{JobID: jobIds[2], Queue: testQueueName, JobSet: "set1"}},                                         // 4
-			MarkJobsCancelRequested{jobIds[1]: ""}, // 4
-			MarkJobsCancelRequested{jobIds[2]: ""}, // 4
+			MarkJobsCancelRequested{jobIds[1]: ""},                                                                                                  // 4
+			MarkJobsCancelRequested{jobIds[2]: ""},                                                                                                  // 4
 		}},
 		"MarkJobsSucceeded": {N: 2, Ops: []DbOperation{
 			InsertJobs{jobIds[0]: &schedulerdb.Job{JobID: jobIds[0]}}, // 1

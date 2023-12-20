@@ -595,7 +595,10 @@ func (s *Scheduler) generateUpdateMessagesFromJob(job *jobdb.Job, jobRunErrors m
 		cancel := &armadaevents.EventSequence_Event{
 			Created: s.now(),
 			Event: &armadaevents.EventSequence_Event_CancelledJob{
-				CancelledJob: &armadaevents.CancelledJob{JobId: jobId},
+				CancelledJob: &armadaevents.CancelledJob{
+					JobId:  jobId,
+					Reason: job.CancelReason(),
+				},
 			},
 		}
 		events = append(events, cancel)
@@ -613,7 +616,10 @@ func (s *Scheduler) generateUpdateMessagesFromJob(job *jobdb.Job, jobRunErrors m
 		cancel := &armadaevents.EventSequence_Event{
 			Created: s.now(),
 			Event: &armadaevents.EventSequence_Event_CancelledJob{
-				CancelledJob: &armadaevents.CancelledJob{JobId: jobId},
+				CancelledJob: &armadaevents.CancelledJob{
+					JobId:  jobId,
+					Reason: job.CancelReason(),
+				},
 			},
 		}
 		events = append(events, cancelRequest, cancel)
@@ -850,7 +856,7 @@ func (s *Scheduler) cancelQueuedJobsIfExpired(txn *jobdb.Txn) ([]*armadaevents.E
 			return nil, err
 		}
 
-		reason := "Expired queue ttl"
+		reason := "Queue TTL expired"
 		cancel := &armadaevents.EventSequence{
 			Queue:      job.Queue(),
 			JobSetName: job.Jobset(),

@@ -3,7 +3,7 @@ name: Deploy GH Pages
 on:
   push:
     branches:
-      - master
+      - fix-gh-permissions
     paths:
       - 'docs/*.md'
       - 'docs/developer'
@@ -32,6 +32,7 @@ jobs:
           rm gh-pages/docs-readme.md
           cp -r master/docs/developer gh-pages/
           cp master/CODE_OF_CONDUCT.md master/CONTRIBUTING.md gh-pages/_pages/
+          touch gh-pages/test.txt && echo "test" > gh-pages/test.txt
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

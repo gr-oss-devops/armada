@@ -12,10 +12,8 @@ on:
       - '.github/workflows/pages.yml'
 
 jobs:
-  deploy-gh-pages:
+  prepare-artifact:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout master
         uses: actions/checkout@v4
@@ -35,13 +33,23 @@ jobs:
           cp -r master/docs/developer gh-pages/
           cp master/CODE_OF_CONDUCT.md master/CONTRIBUTING.md gh-pages/_pages/
 
-      - name: Commit GH Pages
-        run: |
-          cd gh-pages
-          git config user.name armada-admin
-          git config user.email admin@armadaproject.io
-          git add . _pages
-          git diff --quiet && git diff --staged --quiet || git commit -m "Updating Github Pages branch with latest Master changes"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: github-pages
+          path: gh-pages
+          retention-days: 7
+
+  deploy-gh-pages:
+    runs-on: ubuntu-latest
+    needs: prepare-artifact
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

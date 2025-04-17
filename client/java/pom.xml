@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.armadaproject</groupId>
+  <groupId>io.armadaproject.gr-oss-devops</groupId>
   <artifactId>java-client</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.1</version>
   <packaging>jar</packaging>
   <description>Java client library for the Armada project</description>
   <name>java-client</name>
@@ -53,12 +53,12 @@
     <tag/>
   </scm>
 
-  <distributionManagement>
-    <repository>
-      <id>central</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
+<!--  <distributionManagement>-->
+<!--    <repository>-->
+<!--      <id>central</id>-->
+<!--      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+<!--    </repository>-->
+<!--  </distributionManagement>-->
 
   <profiles>
     <profile>
@@ -297,11 +297,12 @@
           <plugin>
             <groupId>org.sonatype.central</groupId>
             <artifactId>central-publishing-maven-plugin</artifactId>
-            <version>0.6.0</version>
+            <version>0.7.0</version>
             <extensions>true</extensions>
             <configuration>
               <publishingServerId>central</publishingServerId>
               <autoPublish>true</autoPublish>
+              <waitUntil>published</waitUntil>
             </configuration>
           </plugin>
 
@@ -318,6 +319,12 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <gpgArguments>
+                <arg>--pinentry-mode</arg>
+                <arg>loopback</arg>
+              </gpgArguments>
+            </configuration>
           </plugin>
 
           <!-- generate java sources from proto -->

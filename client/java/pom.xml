@@ -5,11 +5,11 @@
 
   <groupId>io.github.gr-oss-devops</groupId>
   <artifactId>java-client</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <packaging>jar</packaging>
   <description>Java client library for the Armada project</description>
   <name>java-client</name>
-  <url>https://github.com/armadaproject/java-client</url>
+  <url>https://github.com/gr-oss-devops/armada</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -46,19 +46,11 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/armadaproject/java-client.git</connection>
-    <developerConnection>scm:git:ssh://github.com:armadaproject/java-client.git
-    </developerConnection>
-    <url>http://github.com/armadaproject/java-client/tree/main</url>
+    <connection>scm:git:git://github.com/gr-oss-devops/armada.git</connection>
+    <developerConnection>scm:git:ssh://github.com:gr-oss-devops/armada.git</developerConnection>
+    <url>https://github.com/gr-oss-devops/armada/tree/master/client/java</url>
     <tag/>
   </scm>
-
-<!--  <distributionManagement>-->
-<!--    <repository>-->
-<!--      <id>central</id>-->
-<!--      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-<!--    </repository>-->
-<!--  </distributionManagement>-->
 
   <profiles>
     <profile>
